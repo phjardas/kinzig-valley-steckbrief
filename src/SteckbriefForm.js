@@ -68,6 +68,21 @@ function SteckbriefForm({ onSubmit, className = '', classes }) {
                     )}
                   </Field>
                 </Grid>
+                <Grid item xs={12}>
+                  <Field name="hobbies" validate={required}>
+                    {({ input, meta }) => (
+                      <TextField
+                        id={input.name}
+                        label="Was machst du privat so?"
+                        error={meta.touched && meta.invalid}
+                        helperText={meta.touched && meta.error}
+                        fullWidth
+                        required
+                        {...input}
+                      />
+                    )}
+                  </Field>
+                </Grid>
               </Grid>
             </Grid>
             <Grid item xs={12} md={4}>
