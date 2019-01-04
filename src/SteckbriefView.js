@@ -120,7 +120,6 @@ function SteckbriefView({
                   <div key={label} className={classes.profile}>
                     <QRCode level="L" value={url} className={classes.profileQr} />
                     <div className={classes.profileLabel}>{label}</div>
-                    <div className={classes.profileUrl}>{url}</div>
                   </div>
                 ))}
             </CardContent>
@@ -186,9 +185,6 @@ const styles = ({ spacing, typography }) => ({
   profileLabel: {
     ...typography.body2,
     marginTop: spacing.unit * 2,
-  },
-  profileUrl: {
-    ...typography.body2,
   },
   noTopPadding: {
     paddingTop: 0,
