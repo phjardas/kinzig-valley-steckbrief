@@ -1,18 +1,32 @@
-import { Card, CardContent, CardHeader, CardMedia, Grid, withStyles, Button } from '@material-ui/core';
+import { Button, Card, CardContent, CardHeader, CardMedia, Grid, withStyles } from '@material-ui/core';
 import {
   ArrowBack as ArrowBackIcon,
-  Mood as MoodIcon,
-  Contacts as ContactsIcon,
   Comment as CommentIcon,
+  Contacts as ContactsIcon,
+  Mood as MoodIcon,
   PriorityHigh as PriorityHighIcon,
   Search as SearchIcon,
 } from '@material-ui/icons';
 import React, { useEffect, useState } from 'react';
 import Helmet from 'react-helmet';
-import { getFileData } from './file';
 import { QRCode } from 'react-qr-svg';
+import { getFileData } from './file';
 
-function SteckbriefView({ name, job, company, photo, phone, email, homepage, hobbies, offering, searching, profiles, onReset, classes }) {
+function SteckbriefView({
+  name,
+  job,
+  company,
+  photo,
+  phone,
+  email,
+  homepage,
+  hobbies,
+  offering,
+  searching,
+  profiles = {},
+  onReset,
+  classes,
+}) {
   const [photoData, setPhotoData] = useState();
 
   useEffect(
@@ -100,12 +114,15 @@ function SteckbriefView({ name, job, company, photo, phone, email, homepage, hob
                 { label: 'XING', url: profiles.xing },
                 { label: 'LinkedIn', url: profiles.linkedin },
                 { label: 'Twitter', url: profiles.twitter },
-              ].map(({ label, url }) => (
-                <div key={label} className={classes.profile}>
-                  <QRCode level="L" value={url} className={classes.profileQr} />
-                  <div className={classes.profileLabel}>{label}</div>
-                </div>
-              ))}
+              ]
+                .filter(s => s.url)
+                .map(({ label, url }) => (
+                  <div key={label} className={classes.profile}>
+                    <QRCode level="L" value={url} className={classes.profileQr} />
+                    <div className={classes.profileLabel}>{label}</div>
+                    <div className={classes.profileUrl}>{url}</div>
+                  </div>
+                ))}
             </CardContent>
           </Card>
         </Grid>
@@ -169,6 +186,9 @@ const styles = ({ spacing, typography }) => ({
   profileLabel: {
     ...typography.body2,
     marginTop: spacing.unit * 2,
+  },
+  profileUrl: {
+    ...typography.body2,
   },
   noTopPadding: {
     paddingTop: 0,
